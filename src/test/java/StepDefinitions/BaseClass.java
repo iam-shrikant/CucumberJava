@@ -1,5 +1,11 @@
 package StepDefinitions;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -9,38 +15,66 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.opencsv.CSVWriter;
+
 public class BaseClass {
-
-	WebDriverWait wait;
+	String path = System.getProperty("user.dir");
 	
-	public void initBrowser(WebDriver driver) {
-		System.setProperty("webdriver.chrome.driver", "E:/Selenium Java/chromedriver_win32/chromedriver.exe");
-		driver = new ChromeDriver();		
-		driver.manage().window().maximize();
-	}
-	
-	public WebElement getElement(WebDriver driver, By locator) {
-		// TODO Auto-generated method stub
-		//return null;
-		WebElement element = null;
-		try {
-			waitForElementPresent(locator);
-			element = driver.findElement(locator);
-		}catch(Exception e) {
-			System.out.println("Some error/exception occure while locating web element : "+locator.toString());
-			System.out.println(e.getMessage());
+	/*
+	 * Param: search result
+	 * Function: Fetching Device Name,Price,Storage and Rating; 
+	 * 			Used comparable interface for sorting.
+	 * */
+	public void doSearchAndSaveResult(List<WebElement> searchResult) {
+		ArrayList<Mobile> list = new ArrayList<Mobile>();
+		
+		for(int i =0;i<searchResult.size()-2;i++) {
+			//Get Device Name
+			String deviceName = searchResult.get(i).findElement(By.xpath(".//a/div[2]/div[1]/div")).getText();
+			int deviceRating;
+			
+			//Get Device Rating
+			String ratingAndReview = searchResult.get(i).findElement(By.xpath(".//a/div[2]/div[1]/div[2]/span[2]")).getText();
+			String[] ratingAndReviewArray = ratingAndReview.split("&");			
+			String[] rateArray = ratingAndReviewArray[0].trim().split(" ");
+			deviceRating = Integer.parseInt(rateArray[0].replace(",", ""));
+			
+			//Get Device Storage
+			int deviceStorage = Integer.parseInt(searchResult.get(i).findElement(By.xpath(".//a/div[2]/div[1]/div[3]/ul/li[1]")).getText().replace("GB ROM", "").trim());			
+			
+			//Get Device Price
+			double devicePrice = Double.parseDouble(searchResult.get(i).findElement(By.xpath(".//a/div[2]/div[2]/div[1]/div/div")).getText().replaceAll("[\\u20B9,]", "").trim());
+			list.add(new Mobile(deviceName, deviceRating, deviceStorage, devicePrice));
 		}
-		return element;
+				
+        Collections.sort(list); 
+        saveResultInCSV(list);
 	}
 	
-	public void waitForElementPresent(By locator) {
-		// TODO Auto-generated method stub
+	/*
+	 * Param: List type of Mobile
+	 * Function: Save Device information in CSV formate
+	 * */
+	public void saveResultInCSV(ArrayList<Mobile> list) {
+		File file = new File(path+"/target/result.csv");
+        FileWriter outputfile;
 		try {
-			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-		}catch(Exception e) {
-			System.out.println("Some error/exception occure while waiting for web element : "+locator.toString());
-			System.out.println(e.getMessage());
+			outputfile = new FileWriter(file);
+			CSVWriter writer = new CSVWriter(outputfile);
+			// adding header to csv
+	        String[] header = { "Device Name", "Price","Storage", "Rating" };
+	        writer.writeNext(header);
+	        
+	        for (Mobile mobile: list)
+	        {
+	        	String[] data1 = { mobile.getDeviceModel(), String.valueOf(mobile.getDevicePrice()), String.valueOf(mobile.getDeviceStorage()), String.valueOf(mobile.getRating()) };
+	            writer.writeNext(data1);
+	        }
+	        writer.close();
+			System.out.println("Data Successfully saved in CSV ");
+		} catch (IOException  e) {
+			System.out.println("Something went wrong while saving search result in CSV");
+			e.printStackTrace();
 		}
 	}
-
 }

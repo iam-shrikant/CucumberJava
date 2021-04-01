@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="15.7">
-    <testcase classname="Search for iPhones on Flipkart website" name="Search for iPhone mobile having a maximum price of INR 40000 on Flipkart website" time="15.526">
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="12.601">
+    <testcase classname="Search for iPhones on Flipkart website" name="Search for iPhone mobile having a maximum price of INR 40000 on Flipkart website" time="12.302">
         <system-out>
             <![CDATA[Given Open browser..........................................................passed
 And Goto Flipkart.com.......................................................passed
