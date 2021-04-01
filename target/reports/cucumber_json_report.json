@@ -1,0 +1,84 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-04-01T13:08:58.091Z",
+        "line": 3,
+        "name": "Search for iPhone mobile having a maximum price of INR 40000 on Flipkart website",
+        "description": "",
+        "id": "search-for-iphones-on-flipkart-website;search-for-iphone-mobile-having-a-maximum-price-of-inr-40000-on-flipkart-website",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 5885492400,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "Open browser",
+            "match": {
+              "location": "StepDefinitions.FlipkartSeachSteps.open_browser()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 2626663100,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "Goto Flipkart.com",
+            "match": {
+              "location": "StepDefinitions.FlipkartSeachSteps.goto_flipkart_com()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1225999500,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "User search for iPhones mobile",
+            "match": {
+              "location": "StepDefinitions.FlipkartSeachSteps.user_search_for_i_phones_mobile()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 2688298400,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "Having maximum price of INR 50000",
+            "match": {
+              "location": "StepDefinitions.FlipkartSeachSteps.having_maximum_price_of_inr()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 3034430900,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "Retrive and Save device model, Storage capacity and customer rating",
+            "match": {
+              "location": "StepDefinitions.FlipkartSeachSteps.retrive_and_save_device_model_storage_capacity_and_customer_rating()"
+            },
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Search for iPhones on Flipkart website",
+    "description": "",
+    "id": "search-for-iphones-on-flipkart-website",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/Features/FlipkartSearch.feature",
+    "tags": []
+  }
+]
