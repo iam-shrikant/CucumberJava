@@ -53,7 +53,7 @@ public class BaseClass {
 	
 	/*
 	 * Param: List type of Mobile
-	 * Function: Save Device information in CSV formate
+	 * Function: Save Device information in CSV format
 	 * */
 	public void saveResultInCSV(ArrayList<Mobile> list) {
 		File file = new File(path+"/target/result.csv");
