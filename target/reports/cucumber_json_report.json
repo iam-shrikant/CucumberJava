@@ -3,7 +3,7 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2021-04-01T14:10:13.153Z",
+        "start_timestamp": "2021-04-16T17:47:06.862Z",
         "line": 3,
         "name": "Search for iPhone mobile having a maximum price of INR 40000 on Flipkart website",
         "description": "",
@@ -13,7 +13,7 @@
         "steps": [
           {
             "result": {
-              "duration": 1771003800,
+              "duration": 2260732700,
               "status": "passed"
             },
             "line": 4,
@@ -25,7 +25,7 @@
           },
           {
             "result": {
-              "duration": 3847614000,
+              "duration": 4032093200,
               "status": "passed"
             },
             "line": 5,
@@ -37,19 +37,25 @@
           },
           {
             "result": {
-              "duration": 1079784900,
+              "duration": 1918994800,
               "status": "passed"
             },
             "line": 6,
-            "name": "User search for iPhones mobile",
+            "name": "User search for \"iPhones\" mobile",
             "match": {
-              "location": "StepDefinitions.FlipkartSeachSteps.user_search_for_i_phones_mobile()"
+              "arguments": [
+                {
+                  "val": "\"iPhones\"",
+                  "offset": 16
+                }
+              ],
+              "location": "StepDefinitions.FlipkartSeachSteps.user_search_for_mobile(java.lang.String)"
             },
             "keyword": "When "
           },
           {
             "result": {
-              "duration": 2484433800,
+              "duration": 2929595400,
               "status": "passed"
             },
             "line": 7,
@@ -61,7 +67,7 @@
           },
           {
             "result": {
-              "duration": 3040176300,
+              "duration": 7892460800,
               "status": "passed"
             },
             "line": 8,
@@ -78,7 +84,7 @@
     "description": "",
     "id": "search-for-iphones-on-flipkart-website",
     "keyword": "Feature",
-    "uri": "file:src/test/resources/Features/FlipkartSearch.feature",
+    "uri": "file:src/test/java/featureFiles/FlipkartSearch.feature",
     "tags": []
   }
 ]

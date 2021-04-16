@@ -22,51 +22,45 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import searchImplementation.BaseClass;
+import searchImplementation.HomePage;
+import searchImplementation.SearchResultPage;
 
 public class FlipkartSeachSteps extends BaseClass{
-	WebDriver driver;
+		
+	//WebDriver driver;
 	String path = System.getProperty("user.dir");
-	
+	HomePage home;
+	SearchResultPage search;
 	
 	@Given("Open browser")
 	public void open_browser() {		
-		System.setProperty("webdriver.chrome.driver", path+"/Driver/chromedriver.exe");
-		driver = new ChromeDriver();		
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		intiBrowser();
 	}
 	
 	@And("Goto Flipkart.com")
 	public void goto_flipkart_com() {
 		driver.get("https://www.flipkart.com/");
-		driver.findElement(By.cssSelector("button[class='_2KpZ6l _2doB4z']")).click();
+		home = new HomePage();
+		home.closeSignUpPopUp();
+		//driver.findElement(By.cssSelector("button[class='_2KpZ6l _2doB4z']")).click();
 	}
 
-	@When("User search for iPhones mobile")
-	public void user_search_for_i_phones_mobile() {
-		driver.findElement(By.name("q")).sendKeys("iphones");
-		driver.findElement(By.xpath("//button[@type='submit' and @class='L0Z3Pu']")).click();
-		driver.findElement(By.cssSelector("a[title='Mobiles']")).click();
+	@When("User search for {string} mobile")
+	public void user_search_for_mobile(String queryString) {		
+		search = home.doSearch(queryString);		
 	}
 
 	//Using price filter value as 50000 bcz 40000 is not available 
 	@And("Having maximum price of INR 50000")
 	public void having_maximum_price_of_inr() throws InterruptedException {  
-		Select priceRange = new Select(driver.findElement(By.xpath("//div[@class='_3uDYxP']//select[@class='_2YxCDZ']")));
-		priceRange.selectByValue("50000");
-		Thread.sleep(2000);
+		search.filterResultWithPrice("50000");
 	}
 
 	@Then("Retrive and Save device model, Storage capacity and customer rating")
 	public void retrive_and_save_device_model_storage_capacity_and_customer_rating() {
-		
+		search.retriveAndSave();
 		//Get all search result
-		List<WebElement> searchResult = driver.findElements(By.xpath("//*[@id='container']/div/div[3]/div/div[2]/div[@class='_1AtVbE col-12-12']"));
-		
-		//Defined in baseClass
-		doSearchAndSaveResult(searchResult);
-		driver.close();
-	}
-
-	
+		tearDown();		
+	}	
 }
